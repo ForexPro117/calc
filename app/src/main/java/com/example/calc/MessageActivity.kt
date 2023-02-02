@@ -12,7 +12,7 @@ class MessageActivity : AppCompatActivity() {
         var  text:String? = intent.getStringExtra("message")
         var textView : TextView
         textView = findViewById(R.id.messageText)
-
+    println("Hne: $text")
         textView.text = text
     }
 }

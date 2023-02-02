@@ -1,5 +1,6 @@
 package com.example.calc
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,7 +13,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun sendMessage(view: View) {
-        val editText:EditText = findViewById(R.id.editText)
-        intent.putExtra("message",editText.text)
+        val editText: EditText = findViewById(R.id.editText)
+        val intent = Intent(this, MessageActivity::class.java)
+        System.err.println(editText.text)
+        intent.putExtra("message", editText.text.toString())
+        startActivity(intent)
     }
 }
