@@ -15,5 +15,6 @@ class CalcActivity : AppCompatActivity() {
     fun addCalc(view: View) {
         val btn = view as Button
         System.err.println(btn.text)
+        Log.e("HNEEE", btn.text as String)
     }
 }
