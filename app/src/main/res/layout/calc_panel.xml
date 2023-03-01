@@ -8,11 +8,12 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:onClick="addNum"
         android:text="7"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,23 +21,25 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:onClick="addNum"
         android:text="8"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button6"
         app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintTop_toTopOf="@+id/imageButton3" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:onClick="addNum"
         android:text="9"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button7"
         app:layout_constraintEnd_toStartOf="@+id/button4"
         app:layout_constraintStart_toEndOf="@+id/button2"
@@ -44,11 +47,11 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:onClick="addCalc"
-        android:text="/"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:onClick="addOP"
+        android:text="*"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button8"
         app:layout_constraintEnd_toEndOf="@+id/button20"
@@ -56,10 +59,11 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addNum"
         android:text="4"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button9"
         app:layout_constraintEnd_toStartOf="@+id/button6"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,10 +71,11 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addNum"
         android:text="5"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button10"
         app:layout_constraintEnd_toStartOf="@+id/button7"
         app:layout_constraintStart_toEndOf="@+id/button5"
@@ -78,10 +83,11 @@
 
     <Button
         android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addNum"
         android:text="6"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button11"
         app:layout_constraintEnd_toStartOf="@+id/button8"
         app:layout_constraintStart_toEndOf="@+id/button6"
@@ -89,10 +95,10 @@
 
     <Button
         android:id="@+id/button8"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
-        android:text="*"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addOP"
+        android:text="-"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button12"
         app:layout_constraintEnd_toEndOf="@+id/button4"
@@ -100,10 +106,11 @@
 
     <Button
         android:id="@+id/button9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addNum"
         android:text="1"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button13"
         app:layout_constraintEnd_toStartOf="@+id/button10"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,10 +118,11 @@
 
     <Button
         android:id="@+id/button10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addNum"
         android:text="2"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button14"
         app:layout_constraintEnd_toStartOf="@+id/button11"
         app:layout_constraintStart_toEndOf="@+id/button9"
@@ -122,10 +130,11 @@
 
     <Button
         android:id="@+id/button11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addNum"
         android:text="3"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button15"
         app:layout_constraintEnd_toStartOf="@+id/button12"
         app:layout_constraintStart_toEndOf="@+id/button10"
@@ -133,10 +142,10 @@
 
     <Button
         android:id="@+id/button12"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
-        android:text="-"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addOP"
+        android:text="+"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@+id/button16"
         app:layout_constraintEnd_toEndOf="@+id/button8"
@@ -144,37 +153,41 @@
 
     <Button
         android:id="@+id/button13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
-        android:text="0"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        app:cornerRadius="30dp"
+        android:text=""
         app:layout_constraintEnd_toStartOf="@+id/button14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button9" />
 
     <Button
         android:id="@+id/button14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addNum"
+        android:text="0"
+        app:cornerRadius="30dp"
         app:layout_constraintEnd_toStartOf="@+id/button15"
         app:layout_constraintStart_toEndOf="@+id/button13"
         app:layout_constraintTop_toBottomOf="@+id/button10" />
 
     <Button
         android:id="@+id/button15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="addPoint"
+        android:text="."
+        app:cornerRadius="30dp"
         app:layout_constraintEnd_toStartOf="@+id/button16"
         app:layout_constraintStart_toEndOf="@+id/button14"
         app:layout_constraintTop_toBottomOf="@+id/button11" />
 
     <Button
         android:id="@+id/button16"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="checkNumbers"
         android:text="="
         app:backgroundTint="@color/orange"
         app:cornerRadius="30dp"
@@ -183,53 +196,37 @@
 
     <Button
         android:id="@+id/button17"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:onClick="addCalc"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="clearTextView"
         android:text="C"
         app:cornerRadius="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="@+id/button2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button19"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:onClick="addCalc"
-        android:text="+"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:onClick="delTextChar"
+        android:text="d"
         app:cornerRadius="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/button20"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button20"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="16dp"
-        android:onClick="addCalc"
-        android:text="+"
+        android:onClick="addOP"
+        android:text="/"
         app:cornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="#00000000"
-        app:layout_constraintEnd_toStartOf="@+id/button19"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/stat_notify_more"
-        app:tint="@color/design_default_color_secondary_variant" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
