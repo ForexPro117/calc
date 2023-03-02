@@ -3,6 +3,7 @@ package com.example.calc
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -13,6 +14,15 @@ class CalcActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calc)
+
+        var display = windowManager.defaultDisplay
+        val width = display.width
+        val height = display.height
+
+        if (height >= 1920 && width >= 1080 || height >= 1080 && width >= 1920)
+            AlertDialogCustom().show(supportFragmentManager, "dialog")
+
+
         calcView = findViewById(R.id.calcTextView)
     }
 
@@ -30,7 +40,7 @@ class CalcActivity : AppCompatActivity() {
         checkErrors()
         val btn = view as Button
         var text = calcView?.text.toString()
-        if (text.length < 100)
+        if (text.length < 60)
             calcView?.text = calcView?.text.toString().plus(btn.text.toString())
     }
 
@@ -42,7 +52,7 @@ class CalcActivity : AppCompatActivity() {
         var regex = Regex("[+\\-*/]")
         if (regex.containsMatchIn(text))
             calcView?.text = text.replace(regex, btn.text.toString())
-        else if (text.length in 1..99) {
+        else if (text.length in 1..59) {
             if (Regex("\\d+\\.\$").containsMatchIn(text))
                 text = text.plus("0")
             calcView?.text = text.plus(btn.text.toString())
@@ -79,10 +89,10 @@ class CalcActivity : AppCompatActivity() {
                 calcView?.text = result
 
             } catch (e: Exception) {
-                println(e)//error
+                throw Exception("Ошибка преобразования строк")
             }
         } else {
-            println("sdsd")//error
+            AlertCalcDialogCustom().show(supportFragmentManager, "errorDialog")
         }
     }
 
@@ -101,5 +111,4 @@ class CalcActivity : AppCompatActivity() {
         if (Regex("NaN|Infinity").containsMatchIn(calcView?.text.toString()))
             calcView?.text = ""
     }
-
 }
