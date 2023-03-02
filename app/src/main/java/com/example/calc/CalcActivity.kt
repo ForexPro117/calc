@@ -2,6 +2,7 @@ package com.example.calc
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -13,6 +14,16 @@ class CalcActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calc)
         calcView = findViewById(R.id.calcTextView)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("CALC_TEXT", calcView?.text.toString())
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        calcView?.text = savedInstanceState.getString("CALC_TEXT")
+        super.onRestoreInstanceState(savedInstanceState)
     }
 
     fun addNum(view: View) {
@@ -31,8 +42,12 @@ class CalcActivity : AppCompatActivity() {
         var regex = Regex("[+\\-*/]")
         if (regex.containsMatchIn(text))
             calcView?.text = text.replace(regex, btn.text.toString())
-        else if (text.length in 1..99)
-            calcView?.text = calcView?.text.toString().plus(btn.text.toString())
+        else if (text.length in 1..99) {
+            if (Regex("\\d+\\.\$").containsMatchIn(text))
+                text = text.plus("0")
+            calcView?.text = text.plus(btn.text.toString())
+        }
+
     }
 
     fun clearTextView(view: View) {
@@ -44,7 +59,8 @@ class CalcActivity : AppCompatActivity() {
     }
 
     fun addPoint(view: View) {
-        calcView?.text = calcView?.text.toString().plus(".")
+        if (!Regex("\\d+\\.\\d*\$|[+\\-*/]\$").containsMatchIn(calcView?.text.toString()))
+            calcView?.text = calcView?.text.toString().plus(".")
     }
 
     fun checkNumbers(view: View) {
@@ -81,8 +97,8 @@ class CalcActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkErrors(){
-        if(Regex("NaN|Infinity").containsMatchIn(calcView?.text.toString()))
+    private fun checkErrors() {
+        if (Regex("NaN|Infinity").containsMatchIn(calcView?.text.toString()))
             calcView?.text = ""
     }
 
