@@ -6,28 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="8dp"
-        android:hint="Введите текст"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/button"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonCalc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:onClick="sendMessage"
-        android:text="@string/app_name"
-        app:layout_constraintLeft_toRightOf="@+id/editText"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:onClick="showCalcActivity"
+        android:text="Калькулятор"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18" />
 
+    <Button
+        android:id="@+id/buttonGraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Графики"
+        app:layout_constraintEnd_toEndOf="@+id/buttonCalc"
+        app:layout_constraintStart_toStartOf="@+id/buttonCalc"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCalc" />
+
+    <Button
+        android:id="@+id/buttonExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:onClick="exit"
+        android:text="Выход"
+        app:layout_constraintEnd_toEndOf="@+id/buttonGraph"
+        app:layout_constraintStart_toStartOf="@+id/buttonGraph"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGraph" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
