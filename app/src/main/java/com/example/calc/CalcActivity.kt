@@ -10,18 +10,10 @@ import android.widget.TextView
 
 class CalcActivity : AppCompatActivity() {
 
-    var calcView: TextView? = null
+   private lateinit var calcView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calc)
-
-        var display = windowManager.defaultDisplay
-        val width = display.width
-        val height = display.height
-
-        if (height >= 1920 && width >= 1080 || height >= 1080 && width >= 1920)
-            AlertDialogCustom().show(supportFragmentManager, "dialog")
-
 
         calcView = findViewById(R.id.calcTextView)
     }
