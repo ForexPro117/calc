@@ -15,6 +15,10 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, CalcActivity::class.java)
         startActivity(intent)
     }
+    fun showGraphActivity(view: View) {
+        val intent = Intent(this, GraphActivity::class.java)
+        startActivity(intent)
+    }
     fun exit(view: View) {
         AlertDialogCustom().show(supportFragmentManager, "dialog")
     }
