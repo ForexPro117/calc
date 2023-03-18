@@ -2,93 +2,85 @@ package com.example.calc
 
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import java.util.Vector
+import kotlin.math.ceil
+import kotlin.math.sin
 
 class PaintView(context: Context?) : View(context) {
-    private var otherPaint: Paint
+    private var graphPaint: Paint
     private var linePaint: Paint
-    private var textPaint: Paint
 
     init {
-        textPaint = Paint(Paint.LINEAR_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG)
-        textPaint.color = Color.WHITE
-        textPaint.textSize = 24.toPx
-
         linePaint = Paint()
-//        linePaint.style = Paint.Style.FILL
-        linePaint.color = Color.parseColor("#000000")
-        linePaint.strokeWidth = 3f
+        linePaint.color = Color.BLACK
+        linePaint.strokeWidth = 1.toPx
         linePaint.style = Paint.Style.STROKE
 
-        otherPaint = Paint()
+        graphPaint = Paint()
+        graphPaint.color = Color.BLUE
+        graphPaint.strokeWidth = 3.toPx
+        graphPaint.style = Paint.Style.STROKE
+        graphPaint.pathEffect = CornerPathEffect(50f)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        /*canvas.drawPaint(outerPaint)
-        canvas.drawColor(Color.CYAN)
-        otherPaint.color = Color.WHITE
-        otherPaint.style = Paint.Style.FILL
-        canvas.drawVertices()
-        canvas.drawRect(
-            (
-                    left + (right - left) / 3).toFloat(),
-            (
-                    top + (bottom - top) / 3).toFloat(),
-            (
-                    right - (right - left) / 3).toFloat(),
-            (
-                    bottom - (bottom - top) / 3).toFloat(),
-                    otherPaint
-        )
-        otherPaint.color = Color.GREEN
-        canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), 100.toPx, otherPaint)
-        canvas.drawText(
-            "Geeks for Geeks",
-            (width * 0.3).toFloat(),
-            (height * 0.8).toFloat(),
-            textPaint
-        )*/
         canvas.drawColor(Color.WHITE)
-//        canvas.drawLine(0f.toPx, 0f.toPx, 360f.toPx, 360f.toPx, linePaint)
-//        canvas.drawLine(360f.toPx, 0f.toPx, 0f.toPx, 360f.toPx, linePaint)
-        var linesCount = 20
-        var lines = FloatArray(20 * 4 * 2)
+
+
         var index = 0
-        for (i in 0 until linesCount) {
-            lines[index++] = 30.toPx * i   //x1
-            lines[index++] = 0f            //y1
-            lines[index++] = 30.toPx * i   //x2
-            lines[index++] = 600.toPx     //y2
+        val width = display.width
+        val height = display.height * 0.7
+        val wCount = ceil(((width / 30.toPx).toDouble())).toInt()
+        val hCount = ceil(height / 30.toPx).toInt()
+
+        val linesCount = (wCount + hCount) * 4
+
+        var lines = FloatArray(linesCount * 4)
+
+        for (i in 0 until wCount) {
+            lines[index++] = 30.toPx * i       //x1
+            lines[index++] = 0f                //y1
+            lines[index++] = 30.toPx * i       //x2
+            lines[index++] = height.toFloat()  //y2
         }
 
-        for (i in 0 until linesCount) {
-            lines[index++] = 0f            //x1
-            lines[index++] = 30.toPx * i   //y1
-            lines[index++] = 410.toPx     //x2
-            lines[index++] = 30.toPx * i   //y2
+        for (i in 0 until hCount) {
+            lines[index++] = 0f                //x1
+            lines[index++] = 30.toPx * i       //y1
+            lines[index++] = width.toFloat()   //x2
+            lines[index++] = 30.toPx * i       //y2
         }
 
         canvas.drawLines(lines, linePaint)
 
-        var path = Path()
-        path.moveTo(0.toPx, 120.toPx);
+        val path = Path()
+        path.moveTo(0.toPx, (height / 2).toFloat());
 
-        repeat(10) { _ ->
-            path.rQuadTo((Math.PI / 2).toPx * 10, (-90).toPx, Math.PI.toPx * 10, 0.toPx);
-            path.rQuadTo((Math.PI / 2).toPx * 10, 90.toPx, Math.PI.toPx * 10, 0.toPx);
+        /*repeat((width / PI.toPx).toInt()) { _ ->
+            path.rQuadTo((PI / 2).toPx * 10, (-90).toPx, PI.toPx * 10, 0.toPx);
+            path.rQuadTo((PI / 2).toPx * 10, 90.toPx, PI.toPx * 10, 0.toPx);
+        }*/
+
+        var x = (Math.PI / 4).toFloat()
+        val const = (Math.PI / 4).toFloat()
+        val pointCount = (width / (const * 30)).toInt()
+
+        for (i in 0..pointCount) {
+            path.lineTo(x * 30, (height / 2 + sin(x) * 100).toFloat())
+            x += const
         }
+        /*while (x * 30 <= width) {
+            val y = sin(x.toDouble()).toFloat()
+            path.lineTo(x * 30,  (height/2 + y * 100).toFloat())
+            x += (Math.PI / 4).toFloat()
+        }*/
 
-        linePaint.color = Color.BLUE
-        linePaint.strokeWidth = 6f
-        canvas.drawPath(path, linePaint)
+
+        canvas.drawPath(path, graphPaint)
     }
 
     private val Number.toPx
