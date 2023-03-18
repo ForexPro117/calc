@@ -1,59 +1,101 @@
-package com.example.calc;
+package com.example.calc
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.View;
+import android.content.Context
+import android.content.res.Resources
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
+import android.util.Log
+import android.util.TypedValue
+import android.view.View
+import java.util.Vector
 
-public class PaintView extends View {
+class PaintView(context: Context?) : View(context) {
+    private var otherPaint: Paint
+    private var linePaint: Paint
+    private var textPaint: Paint
 
-    Paint otherPaint, outerPaint, textPaint;
-    float arcLeft;
+    init {
+        textPaint = Paint(Paint.LINEAR_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG)
+        textPaint.color = Color.WHITE
+        textPaint.textSize = 24.toPx
 
-    public PaintView(Context context){
-        super(context);
-        textPaint = new Paint(Paint.LINEAR_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(Color.WHITE);
-        textPaint.setTextSize(pxFromDp(context, 24));
+        linePaint = Paint()
+//        linePaint.style = Paint.Style.FILL
+        linePaint.color = Color.parseColor("#000000")
+        linePaint.strokeWidth = 3f
+        linePaint.style = Paint.Style.STROKE
 
-        outerPaint = new Paint();
-        outerPaint.setStyle(Paint.Style.FILL);
-        outerPaint.setColor(getResources().getColor(R.color.purple_200));
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-
-        ((Activity) getContext()).getWindowManager()
-                .getDefaultDisplay()
-                .getMetrics(displayMetrics);
-
-        arcLeft = pxFromDp(context, 20);
-        otherPaint = new Paint();
+        otherPaint = Paint()
     }
 
-    static float pxFromDp(final Context context, final float dp) {
-//        return dp * context.getResources().getDisplayMetrics().density;
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        canvas.drawPaint(outerPaint);
-        otherPaint.setColor(Color.WHITE);
-        otherPaint.setStyle(Paint.Style.FILL);
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        /*canvas.drawPaint(outerPaint)
+        canvas.drawColor(Color.CYAN)
+        otherPaint.color = Color.WHITE
+        otherPaint.style = Paint.Style.FILL
+        canvas.drawVertices()
         canvas.drawRect(
-                getLeft() + (getRight() - getLeft()) / 3,
-                getTop() + (getBottom() - getTop()) / 3,
-                getRight() - (getRight() - getLeft()) / 3,
-                getBottom() - (getBottom() - getTop()) / 3, otherPaint);
+            (
+                    left + (right - left) / 3).toFloat(),
+            (
+                    top + (bottom - top) / 3).toFloat(),
+            (
+                    right - (right - left) / 3).toFloat(),
+            (
+                    bottom - (bottom - top) / 3).toFloat(),
+                    otherPaint
+        )
+        otherPaint.color = Color.GREEN
+        canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), 100.toPx, otherPaint)
+        canvas.drawText(
+            "Geeks for Geeks",
+            (width * 0.3).toFloat(),
+            (height * 0.8).toFloat(),
+            textPaint
+        )*/
+        canvas.drawColor(Color.WHITE)
+//        canvas.drawLine(0f.toPx, 0f.toPx, 360f.toPx, 360f.toPx, linePaint)
+//        canvas.drawLine(360f.toPx, 0f.toPx, 0f.toPx, 360f.toPx, linePaint)
+        var linesCount = 20
+        var lines = FloatArray(20 * 4 * 2)
+        var index = 0
+        for (i in 0 until linesCount) {
+            lines[index++] = 30.toPx * i   //x1
+            lines[index++] = 0f            //y1
+            lines[index++] = 30.toPx * i   //x2
+            lines[index++] = 600.toPx     //y2
+        }
 
-        otherPaint.setColor(getResources().getColor(R.color.purple_200));
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, arcLeft, otherPaint);
-        canvas.drawText("Geeks for Geeks", (float) (getWidth() * 0.3), (float) (getHeight() * 0.8), textPaint);
+        for (i in 0 until linesCount) {
+            lines[index++] = 0f            //x1
+            lines[index++] = 30.toPx * i   //y1
+            lines[index++] = 410.toPx     //x2
+            lines[index++] = 30.toPx * i   //y2
+        }
+
+        canvas.drawLines(lines, linePaint)
+
+        var path = Path()
+        path.moveTo(0.toPx, 120.toPx);
+
+        repeat(10) { _ ->
+            path.rQuadTo((Math.PI / 2).toPx * 10, (-90).toPx, Math.PI.toPx * 10, 0.toPx);
+            path.rQuadTo((Math.PI / 2).toPx * 10, 90.toPx, Math.PI.toPx * 10, 0.toPx);
+        }
+
+        linePaint.color = Color.BLUE
+        linePaint.strokeWidth = 6f
+        canvas.drawPath(path, linePaint)
     }
+
+    private val Number.toPx
+        get() = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            Resources.getSystem().displayMetrics
+        )
+
 }
