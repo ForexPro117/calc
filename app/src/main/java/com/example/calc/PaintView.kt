@@ -1,7 +1,10 @@
 package com.example.calc
 
+import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
 import android.content.res.Resources
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.*
 import android.util.Log
 import android.util.TypedValue
@@ -9,11 +12,16 @@ import android.view.View
 import kotlin.math.ceil
 import kotlin.math.sin
 
-class PaintView(context: Context?) : View(context) {
+class PaintView(context: Context?, db: SQLiteDatabase) : View(context) {
     private var graphPaint: Paint
     private var linePaint: Paint
+    private var db: SQLiteDatabase
+
+    private val TABLE = "points"
 
     init {
+        this.db = db
+
         linePaint = Paint()
         linePaint.color = Color.BLACK
         linePaint.strokeWidth = 1.toPx
@@ -26,10 +34,14 @@ class PaintView(context: Context?) : View(context) {
         graphPaint.pathEffect = CornerPathEffect(50f)
     }
 
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawColor(Color.WHITE)
 
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS $TABLE ( _id INTEGER PRIMARY KEY AUTOINCREMENT, x  REAL,  y REAL);");
+        db.execSQL("DELETE FROM $TABLE");
 
         var index = 0
         val width = display.width
@@ -60,27 +72,59 @@ class PaintView(context: Context?) : View(context) {
         val path = Path()
         path.moveTo(0.toPx, (height / 2).toFloat());
 
-        /*repeat((width / PI.toPx).toInt()) { _ ->
-            path.rQuadTo((PI / 2).toPx * 10, (-90).toPx, PI.toPx * 10, 0.toPx);
-            path.rQuadTo((PI / 2).toPx * 10, 90.toPx, PI.toPx * 10, 0.toPx);
-        }*/
-
         var x = (Math.PI / 4).toFloat()
         val const = (Math.PI / 4).toFloat()
         val pointCount = (width / (const * 30)).toInt()
+        var list = mutableListOf<PointF>()
 
         for (i in 0..pointCount) {
-            path.lineTo(x * 30, (height / 2 + sin(x) * 100).toFloat())
+            val point = PointF(x * 30, (height / 2 + sin(x) * 100).toFloat())
+            path.lineTo(point.x, point.y)
+            list.add(point)
             x += const
         }
-        /*while (x * 30 <= width) {
-            val y = sin(x.toDouble()).toFloat()
-            path.lineTo(x * 30,  (height/2 + y * 100).toFloat())
-            x += (Math.PI / 4).toFloat()
-        }*/
-
-
         canvas.drawPath(path, graphPaint)
+        savePoints(list)
+
+        graphPaint.color = Color.GREEN
+        graphPaint.strokeWidth = 10.toPx
+        for (point in findExtremes())
+            canvas.drawPoint(point.x, point.y, graphPaint)
+    }
+
+
+    private fun savePoints(list: Collection<PointF>) {
+        for (point in list) {
+            var values = ContentValues()
+            values.put("x", point.x)
+            values.put("y", point.y)
+            db.insert(TABLE, null, values)
+        }
+    }
+
+    private fun findExtremes(): Collection<PointF> {
+        var query = db.rawQuery("SELECT * FROM $TABLE;", null)
+        var maxPoint: PointF = PointF(Float.MAX_VALUE, Float.MAX_VALUE)
+        var minPoint: PointF = PointF(Float.MIN_VALUE, Float.MIN_VALUE)
+        var max = Float.MIN_VALUE
+        var min = Float.MAX_VALUE
+
+        if (query.moveToFirst()) {
+            while (query.moveToNext()) {
+                val x = query.getFloat(1)
+                val y = query.getFloat(2)
+                if (y >= max) {
+                    max = y
+                    maxPoint = PointF(x, y)
+                }
+                if (y <= min) {
+                    min = y
+                    minPoint = PointF(x, y)
+                }
+            }
+        }
+        query.close()
+        return mutableListOf(maxPoint, minPoint)
     }
 
     private val Number.toPx

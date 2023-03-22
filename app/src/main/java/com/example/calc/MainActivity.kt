@@ -23,11 +23,4 @@ class MainActivity : AppCompatActivity() {
         AlertDialogCustom().show(supportFragmentManager, "dialog")
     }
 
-    /* fun sendMessage(view: View) {
-         val editText: EditText = findViewById(R.id.editText)
-         val intent = Intent(this, MessageActivity::class.java)
-         System.err.println(editText.text)
-         intent.putExtra("message", editText.text.toString())
-         startActivity(intent)
-     }*/
 }
