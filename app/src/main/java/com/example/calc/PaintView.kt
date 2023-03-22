@@ -104,8 +104,7 @@ class PaintView(context: Context?, db: SQLiteDatabase) : View(context) {
 
     private fun findExtremes(): Collection<PointF> {
         var query = db.rawQuery("SELECT * FROM $TABLE;", null)
-        var maxPoint: PointF = PointF(Float.MAX_VALUE, Float.MAX_VALUE)
-        var minPoint: PointF = PointF(Float.MIN_VALUE, Float.MIN_VALUE)
+        var list = mutableListOf<PointF>()
         var max = Float.MIN_VALUE
         var min = Float.MAX_VALUE
 
@@ -115,16 +114,15 @@ class PaintView(context: Context?, db: SQLiteDatabase) : View(context) {
                 val y = query.getFloat(2)
                 if (y >= max) {
                     max = y
-                    maxPoint = PointF(x, y)
                 }
                 if (y <= min) {
                     min = y
-                    minPoint = PointF(x, y)
                 }
+                list.add(PointF(x, y))
             }
         }
         query.close()
-        return mutableListOf(maxPoint, minPoint)
+        return list.filter { p: PointF -> p.y.equals(max) or p.y.equals(min) }
     }
 
     private val Number.toPx
